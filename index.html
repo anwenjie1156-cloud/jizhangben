@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>涓汉璁拌处鏈?/title>
+<title>个人记账本</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f5f6fa; color: #2d3436; min-height: 100vh; }
 
-/* ---- 椤堕儴 ---- */
+/* ---- 顶部 ---- */
 .header { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; padding: 20px 24px; }
 .header h1 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
 .balance-cards { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -16,10 +16,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .balance-card .label { font-size: 12px; opacity: .8; }
 .balance-card .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
 
-/* ---- 涓讳綋 ---- */
+/* ---- 主体 ---- */
 .container { max-width: 800px; margin: 0 auto; padding: 20px; }
 
-/* ---- 璁拌处琛ㄥ崟 ---- */
+/* ---- 记账表单 ---- */
 .form-card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .form-card h3 { font-size: 15px; margin-bottom: 14px; color: #636e72; }
 .form-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
@@ -31,12 +31,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .type-btn.income.active { background: #00b894; color: #fff; border-color: #00b894; }
 .submit-btn { padding: 10px 24px; background: #6c5ce7; color: #fff; border: none; border-radius: 10px; font-size: 14px; cursor: pointer; font-weight: 600; }
 
-/* ---- 瑙嗗浘鍒囨崲 ---- */
+/* ---- 视图切换 ---- */
 .view-tabs { display: flex; gap: 0; margin-bottom: 16px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .view-tab { flex: 1; padding: 12px; text-align: center; font-size: 14px; cursor: pointer; border: none; background: #fff; color: #636e72; transition: all .2s; }
 .view-tab.active { background: #6c5ce7; color: #fff; font-weight: 600; }
 
-/* ---- 鍒楄〃 ---- */
+/* ---- 列表 ---- */
 .list-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .list-card h3 { font-size: 15px; margin-bottom: 14px; color: #636e72; }
 .record-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f2f6; }
@@ -51,7 +51,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .del-btn { background: none; border: none; color: #b2bec3; cursor: pointer; font-size: 16px; padding: 4px 8px; margin-left: 8px; }
 .del-btn:hover { color: #ff7675; }
 
-/* ---- 缁熻 ---- */
+/* ---- 统计 ---- */
 .stats-card { background: #fff; border-radius: 16px; padding: 20px; margin-top: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .stats-card h3 { font-size: 15px; margin-bottom: 14px; color: #636e72; }
 .stats-row { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -71,92 +71,92 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 <body>
 
 <div class="header">
-  <h1>馃挵 涓汉璁拌处鏈?/h1>
+  <h1>💰 个人记账本</h1>
   <div class="balance-cards" id="balanceCards">
-    <div class="balance-card"><div class="label">鎬绘敹鍏?/div><div class="value" id="totalIncome">楼0</div></div>
-    <div class="balance-card"><div class="label">鎬绘敮鍑?/div><div class="value" id="totalExpense">楼0</div></div>
-    <div class="balance-card"><div class="label">缁撲綑</div><div class="value" id="balance">楼0</div></div>
+    <div class="balance-card"><div class="label">总收入</div><div class="value" id="totalIncome">¥0</div></div>
+    <div class="balance-card"><div class="label">总支出</div><div class="value" id="totalExpense">¥0</div></div>
+    <div class="balance-card"><div class="label">结余</div><div class="value" id="balance">¥0</div></div>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- 璁拌处琛ㄥ崟 -->
+  <!-- 记账表单 -->
   <div class="form-card">
-    <h3>鉁忥笍 璁颁竴绗?/h3>
+    <h3>✏️ 记一笔</h3>
     <div class="form-row">
-      <button class="type-btn expense active" onclick="setType('expense',this)">馃摛 鏀嚭</button>
-      <button class="type-btn income" onclick="setType('income',this)">馃摜 鏀跺叆</button>
+      <button class="type-btn expense active" onclick="setType('expense',this)">📤 支出</button>
+      <button class="type-btn income" onclick="setType('income',this)">📥 收入</button>
     </div>
     <div class="form-row">
       <input type="date" id="formDate">
       <select id="formCategory"></select>
-      <input type="number" id="formAmount" placeholder="閲戦" step="0.01" min="0.01">
+      <input type="number" id="formAmount" placeholder="金额" step="0.01" min="0.01">
     </div>
     <div class="form-row">
-      <input type="text" id="formNote" placeholder="澶囨敞锛堥€夊～锛? style="flex:3">
-      <button class="submit-btn" onclick="addRecord()">璁颁笅</button>
+      <input type="text" id="formNote" placeholder="备注（选填）" style="flex:3">
+      <button class="submit-btn" onclick="addRecord()">记下</button>
     </div>
-    <div id="editHint" style="display:none;font-size:12px;color:#6c5ce7;margin-top:8px">姝ｅ湪缂栬緫璁板綍锛?a href="#" onclick="cancelEdit()">鍙栨秷缂栬緫</a></div>
+    <div id="editHint" style="display:none;font-size:12px;color:#6c5ce7;margin-top:8px">正在编辑记录，<a href="#" onclick="cancelEdit()">取消编辑</a></div>
   </div>
 
-  <!-- 瑙嗗浘鍒囨崲 -->
+  <!-- 视图切换 -->
   <div class="view-tabs">
-    <button class="view-tab active" onclick="switchView('day')">馃搮 鏃ヨ鍥?/button>
-    <button class="view-tab" onclick="switchView('month')">馃搯 鏈堣鍥?/button>
-    <button class="view-tab" onclick="switchView('year')">馃搱 骞磋鍥?/button>
+    <button class="view-tab active" onclick="switchView('day')">📅 日视图</button>
+    <button class="view-tab" onclick="switchView('month')">📆 月视图</button>
+    <button class="view-tab" onclick="switchView('year')">📈 年视图</button>
   </div>
 
-  <!-- 鏃ユ湡瀵艰埅 -->
+  <!-- 日期导航 -->
   <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px">
-    <button onclick="navigate(-1)" style="background:#fff;border:1px solid #dfe6e9;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">鈼€</button>
+    <button onclick="navigate(-1)" style="background:#fff;border:1px solid #dfe6e9;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">◀</button>
     <span id="dateLabel" style="font-weight:600;font-size:16px"></span>
-    <button onclick="navigate(1)" style="background:#fff;border:1px solid #dfe6e9;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">鈻?/button>
-    <button onclick="navigate(0)" style="background:#6c5ce7;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">浠婂ぉ</button>
+    <button onclick="navigate(1)" style="background:#fff;border:1px solid #dfe6e9;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">▶</button>
+    <button onclick="navigate(0)" style="background:#6c5ce7;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:14px">今天</button>
   </div>
 
-  <!-- 璁板綍鍒楄〃 -->
-  <div class="list-card" id="listCard"><h3 id="listTitle">馃搵 璐﹀崟鏄庣粏</h3><div id="recordList" class="empty-hint">鏆傛棤璁板綍</div></div>
+  <!-- 记录列表 -->
+  <div class="list-card" id="listCard"><h3 id="listTitle">📋 账单明细</h3><div id="recordList" class="empty-hint">暂无记录</div></div>
 
-  <!-- 缁熻 -->
-  <div class="stats-card" id="statsCard"><h3>馃搳 鍒嗙被缁熻</h3><div id="statsArea" class="empty-hint">鏆傛棤鏁版嵁</div></div>
+  <!-- 统计 -->
+  <div class="stats-card" id="statsCard"><h3>📊 分类统计</h3><div id="statsArea" class="empty-hint">暂无数据</div></div>
 
 </div>
 
 <script>
-// ====== 鏁版嵁瀹氫箟 ======
+// ====== 数据定义 ======
 const EXPENSE_CATS = [
-  { id:'food', name:'馃崝 椁愰ギ', color:'#ff7675' },
-  { id:'transport', name:'馃殫 浜ら€?, color:'#fdcb6e' },
-  { id:'shopping', name:'馃泹 璐墿', color:'#e17055' },
-  { id:'entertainment', name:'馃幃 濞变箰', color:'#a29bfe' },
-  { id:'housing', name:'馃彔 浣忔埧', color:'#636e72' },
-  { id:'health', name:'馃拪 鍖荤枟', color:'#fd79a8' },
-  { id:'education', name:'馃摎 瀛︿範', color:'#00cec9' },
-  { id:'digital', name:'馃摫 鏁扮爜', color:'#6c5ce7' },
-  { id:'beauty', name:'馃拕 缇庡', color:'#e84393' },
-  { id:'pet', name:'馃惥 瀹犵墿', color:'#fab1a0' },
-  { id:'gift', name:'馃巵 浜烘儏', color:'#ffeaa7' },
-  { id:'other_e', name:'馃搶 鍏朵粬鏀嚭', color:'#b2bec3' }
+  { id:'food', name:'🍔 餐饮', color:'#ff7675' },
+  { id:'transport', name:'🚗 交通', color:'#fdcb6e' },
+  { id:'shopping', name:'🛍 购物', color:'#e17055' },
+  { id:'entertainment', name:'🎮 娱乐', color:'#a29bfe' },
+  { id:'housing', name:'🏠 住房', color:'#636e72' },
+  { id:'health', name:'💊 医疗', color:'#fd79a8' },
+  { id:'education', name:'📚 学习', color:'#00cec9' },
+  { id:'digital', name:'📱 数码', color:'#6c5ce7' },
+  { id:'beauty', name:'💄 美容', color:'#e84393' },
+  { id:'pet', name:'🐾 宠物', color:'#fab1a0' },
+  { id:'gift', name:'🎁 人情', color:'#ffeaa7' },
+  { id:'other_e', name:'📌 其他支出', color:'#b2bec3' }
 ];
 
 const INCOME_CATS = [
-  { id:'salary', name:'馃捈 宸ヨ祫', color:'#00b894' },
-  { id:'bonus', name:'馃Ё 濂栭噾', color:'#55efc4' },
-  { id:'investment', name:'馃搱 鎶曡祫', color:'#00cec9' },
-  { id:'parttime', name:'馃敡 鍏艰亴', color:'#81ecec' },
-  { id:'refund', name:'鈫╋笍 閫€娆?, color:'#74b9ff' },
-  { id:'other_i', name:'馃搶 鍏朵粬鏀跺叆', color:'#a29bfe' }
+  { id:'salary', name:'💼 工资', color:'#00b894' },
+  { id:'bonus', name:'🧧 奖金', color:'#55efc4' },
+  { id:'investment', name:'📈 投资', color:'#00cec9' },
+  { id:'parttime', name:'🔧 兼职', color:'#81ecec' },
+  { id:'refund', name:'↩️ 退款', color:'#74b9ff' },
+  { id:'other_i', name:'📌 其他收入', color:'#a29bfe' }
 ];
 
-// ====== 鐘舵€?======
+// ====== 状态 ======
 let records = JSON.parse(localStorage.getItem('jizhang_records') || '[]');
 let currentView = 'day';
 let currentDate = new Date();
 let currentType = 'expense';
 let editingId = null;
 
-// ====== 鍒濆鍖?======
+// ====== 初始化 ======
 function init() {
   document.getElementById('formDate').value = toDateStr(new Date());
   renderCategorySelect();
@@ -171,7 +171,7 @@ function parseDate(s) { const p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2
 
 function save() { localStorage.setItem('jizhang_records', JSON.stringify(records)); }
 
-// ====== 鍒嗙被閫夋嫨 ======
+// ====== 分类选择 ======
 function renderCategorySelect() {
   const cats = currentType === 'expense' ? EXPENSE_CATS : INCOME_CATS;
   const sel = document.getElementById('formCategory');
@@ -185,14 +185,14 @@ function setType(type, btn) {
   renderCategorySelect();
 }
 
-// ====== 娣诲姞/缂栬緫璁板綍 ======
+// ====== 添加/编辑记录 ======
 function addRecord() {
   const date = document.getElementById('formDate').value;
   const category = document.getElementById('formCategory').value;
   const amount = parseFloat(document.getElementById('formAmount').value);
   const note = document.getElementById('formNote').value.trim();
 
-  if (!date || !amount || amount <= 0) { alert('璇峰～鍐欐棩鏈熷拰閲戦'); return; }
+  if (!date || !amount || amount <= 0) { alert('请填写日期和金额'); return; }
 
   if (editingId !== null) {
     const idx = records.findIndex(r => r.id === editingId);
@@ -236,17 +236,17 @@ function editRecord(id) {
 function cancelEdit() { clearForm(); }
 
 function deleteRecord(id) {
-  if (!confirm('纭畾鍒犻櫎杩欐潯璁板綍鍚楋紵')) return;
+  if (!confirm('确定删除这条记录吗？')) return;
   records = records.filter(r => r.id !== id);
   save();
   renderAll();
 }
 
-// ====== 瑙嗗浘鍒囨崲 ======
+// ====== 视图切换 ======
 function switchView(view) {
   currentView = view;
   document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.view-tab').forEach(t => { if (t.textContent.includes(view==='day'?'鏃?:view==='month'?'鏈?:'骞?)) t.classList.add('active'); });
+  document.querySelectorAll('.view-tab').forEach(t => { if (t.textContent.includes(view==='day'?'日':view==='month'?'月':'年')) t.classList.add('active'); });
   currentDate = new Date();
   updateDateLabel();
   renderAll();
@@ -268,7 +268,7 @@ function updateDateLabel() {
   else el.textContent = toYearStr(currentDate);
 }
 
-// ====== 绛涢€?======
+// ====== 筛选 ======
 function getFiltered() {
   if (currentView === 'day') {
     const ds = toDateStr(currentDate);
@@ -282,7 +282,7 @@ function getFiltered() {
   }
 }
 
-// ====== 娓叉煋 ======
+// ====== 渲染 ======
 function renderAll() {
   const filtered = getFiltered();
   renderSummary();
@@ -294,9 +294,9 @@ function renderSummary() {
   const all = records;
   const totalIn = all.filter(r => r.type === 'income').reduce((s,r) => s + r.amount, 0);
   const totalEx = all.filter(r => r.type === 'expense').reduce((s,r) => s + r.amount, 0);
-  document.getElementById('totalIncome').textContent = '楼' + totalIn.toFixed(2);
-  document.getElementById('totalExpense').textContent = '楼' + totalEx.toFixed(2);
-  document.getElementById('balance').textContent = '楼' + (totalIn - totalEx).toFixed(2);
+  document.getElementById('totalIncome').textContent = '¥' + totalIn.toFixed(2);
+  document.getElementById('totalExpense').textContent = '¥' + totalEx.toFixed(2);
+  document.getElementById('balance').textContent = '¥' + (totalIn - totalEx).toFixed(2);
 }
 
 function getCatInfo(id) {
@@ -305,9 +305,9 @@ function getCatInfo(id) {
 
 function renderList(filtered) {
   const el = document.getElementById('recordList');
-  document.getElementById('listTitle').textContent = currentView === 'day' ? '馃搵 褰撴棩娴佹按' : currentView === 'month' ? '馃搵 褰撴湀娴佹按' : '馃搵 褰撳勾娴佹按';
+  document.getElementById('listTitle').textContent = currentView === 'day' ? '📋 当日流水' : currentView === 'month' ? '📋 当月流水' : '📋 当年流水';
 
-  if (filtered.length === 0) { el.innerHTML = '<div class="empty-hint">鏆傛棤璁板綍</div>'; return; }
+  if (filtered.length === 0) { el.innerHTML = '<div class="empty-hint">暂无记录</div>'; return; }
 
   let subTotalEx = 0, subTotalIn = 0;
   let html = '';
@@ -319,24 +319,24 @@ function renderList(filtered) {
       + '<div class="cat-icon" style="background:'+cat.color+'20;color:'+cat.color+'">'+cat.name.slice(0,2)+'</div>'
       + '<div class="record-info">'
       + '<div class="note">'+(r.note || cat.name.slice(2))+'</div>'
-      + '<div class="meta">'+r.date+' 路 '+cat.name.slice(2)+'</div>'
+      + '<div class="meta">'+r.date+' · '+cat.name.slice(2)+'</div>'
       + '</div></div>'
       + '<div style="display:flex;align-items:center">'
-      + '<div class="record-amount '+r.type+'">'+(r.type==='income'?'+':'鈭?)+'楼'+r.amount.toFixed(2)+'</div>'
-      + '<button class="del-btn" title="缂栬緫" onclick="editRecord('+r.id+')" style="margin-left:4px">鉁忥笍</button>'
-      + '<button class="del-btn" onclick="deleteRecord('+r.id+')">馃棏</button>'
+      + '<div class="record-amount '+r.type+'">'+(r.type==='income'?'+':'−')+'¥'+r.amount.toFixed(2)+'</div>'
+      + '<button class="del-btn" title="编辑" onclick="editRecord('+r.id+')" style="margin-left:4px">✏️</button>'
+      + '<button class="del-btn" onclick="deleteRecord('+r.id+')">🗑</button>'
       + '</div></div>';
   });
   html += '<div style="display:flex;justify-content:flex-end;gap:20px;padding-top:12px;font-size:13px;color:#636e72;border-top:2px solid #f1f2f6;margin-top:8px">'
-    + '<span>馃摜 鏀跺叆 楼'+subTotalIn.toFixed(2)+'</span>'
-    + '<span>馃摛 鏀嚭 楼'+subTotalEx.toFixed(2)+'</span>'
-    + '<span style="font-weight:700">鍚堣 楼'+(subTotalIn-subTotalEx).toFixed(2)+'</span></div>';
+    + '<span>📥 收入 ¥'+subTotalIn.toFixed(2)+'</span>'
+    + '<span>📤 支出 ¥'+subTotalEx.toFixed(2)+'</span>'
+    + '<span style="font-weight:700">合计 ¥'+(subTotalIn-subTotalEx).toFixed(2)+'</span></div>';
   el.innerHTML = html;
 }
 
 function renderStats(filtered) {
   const el = document.getElementById('statsArea');
-  if (filtered.length === 0) { el.innerHTML = '<div class="empty-hint">鏆傛棤鏁版嵁</div>'; return; }
+  if (filtered.length === 0) { el.innerHTML = '<div class="empty-hint">暂无数据</div>'; return; }
 
   const catMap = {};
   filtered.forEach(r => {
@@ -356,12 +356,12 @@ function renderStats(filtered) {
       + '<div class="bar-track">'
       + (e.expense > 0 ? '<div class="bar-fill" style="width:'+(e.expense/maxVal*100)+'%;background:'+cat.color+'"></div>' : '')
       + '</div>'
-      + '<div class="bar-val" style="color:'+(total>=0?'#00b894':'#ff7675')+'">'+(total>=0?'+':'')+'楼'+Math.abs(total).toFixed(2)+'</div></div>';
+      + '<div class="bar-val" style="color:'+(total>=0?'#00b894':'#ff7675')+'">'+(total>=0?'+':'')+'¥'+Math.abs(total).toFixed(2)+'</div></div>';
   });
   el.innerHTML = html;
 }
 
-// ====== 鍚姩 ======
+// ====== 启动 ======
 init();
 </script>
 </body>
